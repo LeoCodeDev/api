@@ -34,8 +34,8 @@ const getRecipesById = async (req, res) => {
         as: "recipes",
         attributes: ["id", "name", "image", "summary", "healthScore", "steps"],
         through: {
-          attributes: []
-        }
+          attributes: [],
+        },
       },
       include: {
         model: Diet,
@@ -47,14 +47,16 @@ const getRecipesById = async (req, res) => {
       },
     });
 
-    console.log(recipe);
-
     if (!recipe) return res.status(404).send({ error: "Recipe not found" });
 
     const dietsName = recipe.diets.map((diet) => diet.name);
 
     return res.status(200).json({
-      ...recipe,
+      id: recipe.id,
+      name: recipe.name,
+      summary: recipe.summary,
+      healthScore: recipe.healthScore,
+      steps: recipe.steps,
       diets: dietsName,
     });
   } catch (error) {
