@@ -5,9 +5,9 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define("recipe", {
     id: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.UUID,
       primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
     },
     name: {
       type: DataTypes.STRING,
@@ -17,19 +17,19 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    resume: {
+    summary: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    score: {
+    healthScore: {
       type: DataTypes.FLOAT,
       allowNull: false,
       validate: {
         min: 1.0,
-        max: 10.0,
+        max: 100.0,
       },
     },
-    stepStep: {
+    steps: {
       type: DataTypes.TEXT,
       allowNull: false,
     },

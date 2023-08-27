@@ -1,33 +1,23 @@
-require("dotenv").config();
-const axios = require("axios");
-const { Recipe } = require("../db");
-const URL = "https://api.spoonacular.com/recipes";
-const { API_KEY } = process.env;
+const { recipesApi } = require("../handlers/recipeApi");
+const { recipesDatabase } = require("../handlers/recipesDatabase");
 
-const getRecipeByName = async (req, res) => {
+const getRecipesByName = async (req, res) => {
+  const { name } = req.query;
+
   try {
-    const { name } = req.query;
-    let data;
-    // if (id.includes("priv_")) {
-    //   data = await Recipe.findOne({
-    //     where: {
-    //       id: id,
-    //     },
-    //   });
-    // } else if (typeof Number(id) === "number") {
-    //   let response = await axios(`${URL}/${id}/information?apiKey=${API_KEY}`);
+    if (!name) return res.status(400).json({ error: "No name provided" });
 
-    //   data = response.data;
-    // }
+    const recipeApi = await recipesApi(name);
+    const recipeDatabase = await recipesDatabase(name);
 
-    // return data
-    //   ? res.status(200).json(data)
-    //   : res.status(404).send(`Recipe with id:${id} not found`);
+    const recipes = [...recipeApi, ...recipeDatabase];
+
+    return res.status(200).send(recipes);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
 module.exports = {
-  getRecipeByName,
+  getRecipesByName,
 };
