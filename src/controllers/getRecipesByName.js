@@ -12,7 +12,7 @@ const getRecipesByName = async (req, res) => {
 
     const recipes = [...recipeApi, ...recipeDatabase];
 
-    return res.status(200).send(recipes);
+    return res.status(200).json(recipes);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

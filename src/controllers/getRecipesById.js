@@ -10,7 +10,7 @@ const getRecipesById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    if (!id) return res.status(400).send("Id is required");
+    if (!id) return res.status(400).json({ error: "Id is required" });
 
     if (!id.includes("-")) {
       const { data } = await axios.get(
@@ -18,7 +18,7 @@ const getRecipesById = async (req, res) => {
       );
 
       if (!data) {
-        return res.status(404).send({ error: "Recipe not found" });
+        return res.status(404).json({ error: "Recipe not found" });
       }
 
       const recipe = recipeBuilder(data);
@@ -47,7 +47,7 @@ const getRecipesById = async (req, res) => {
       },
     });
 
-    if (!recipe) return res.status(404).send({ error: "Recipe not found" });
+    if (!recipe) return res.status(404).json({ error: "Recipe not found" });
 
     const dietsName = recipe.diets.map((diet) => diet.name);
 
@@ -60,7 +60,7 @@ const getRecipesById = async (req, res) => {
       diets: dietsName,
     });
   } catch (error) {
-    return res.status(500).send({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 

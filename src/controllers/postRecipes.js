@@ -28,7 +28,6 @@ const postRecipes = async (req, res) => {
     }
 
     return res.status(created ? 201 : 200).json(newRecipe);
-    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
