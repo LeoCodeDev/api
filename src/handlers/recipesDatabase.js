@@ -1,10 +1,14 @@
 const { Recipe, Diet } = require("../db");
 
 const recipesDatabase = async (name) => {
+  const whereOptions = name
+    ? {
+        where: { name },
+      }
+    : {};
+
   const recipes = await Recipe.findAll({
-    where: {
-      name,
-    },
+    ...whereOptions,
     include: {
       model: Diet,
       as: "diets",

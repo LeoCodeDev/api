@@ -1,12 +1,12 @@
 const { recipesApi } = require("../handlers/recipeApi");
 const { recipesDatabase } = require("../handlers/recipesDatabase");
 
-const getRecipesByName = async (req, res) => {
+const getRecipes = async (req, res) => {
   const { name } = req.query;
-
   try {
-    if (!name) return res.status(400).json({ error: "No name provided" });
-
+    if (typeof name !== "string")
+      return res.status(400).json({ error: "Invalid query" });
+    
     const recipeApi = await recipesApi(name);
     const recipeDatabase = await recipesDatabase(name);
 
@@ -19,5 +19,5 @@ const getRecipesByName = async (req, res) => {
 };
 
 module.exports = {
-  getRecipesByName,
+  getRecipes,
 };
