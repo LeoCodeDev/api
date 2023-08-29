@@ -4,7 +4,7 @@ const { recipesDatabase } = require("../handlers/recipesDatabase");
 const getRecipes = async (req, res) => {
   const { name } = req.query;
   try {
-    if (typeof name !== "string")
+    if (name && typeof name !== "string")
       return res.status(400).json({ error: "Invalid query" });
     
     const recipeApi = await recipesApi(name);
