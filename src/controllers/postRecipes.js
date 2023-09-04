@@ -1,10 +1,10 @@
 const { Diet, Recipe } = require("../db");
 
 const postRecipes = async (req, res) => {
-  const { name, image, summary, healthScore, steps, diets } = req.body;
+  const { name, image, summary, healthScore, steps, diets, time } = req.body;
 
   try {
-    if (!name || !steps || !diets)
+    if (!name || !steps || !diets || !time)
       return res.status(400).json({ error: "Missing data" });
 
     const [newRecipe, created] = await Recipe.findOrCreate({
@@ -14,6 +14,7 @@ const postRecipes = async (req, res) => {
         image: image ? image : `https://i.ibb.co/PGxRRsK/2.png`,
         summary: summary ? summary : `Summary not provided`,
         healthScore: healthScore ? healthScore : 0,
+        time,
         steps,
       },
     });
