@@ -34,6 +34,13 @@ module.exports = (sequelize) => {
           max: 100,
         },
       },
+      time: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          min: 1,
+        },
+      },
       steps: {
         type: DataTypes.ARRAY(DataTypes.TEXT),
         allowNull: false,

@@ -15,6 +15,7 @@ const recipeBuilder = (data) => {
     image: data.image,
     summary: data.summary,
     healthScore: data.healthScore,
+    time: data.readyInMinutes,
     steps: data.analyzedInstructions[0]?.steps.map((step) => step.step),
     diets: [...diets, ...data.diets],
   };
