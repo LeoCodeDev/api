@@ -10,7 +10,7 @@ const getRecipes = async (req, res) => {
     const recipeApi = await recipesApi(name);
     const recipeDatabase = await recipesDatabase(name);
 
-    const recipes = [...recipeApi, ...recipeDatabase];
+    const recipes = [...recipeDatabase, ...recipeApi];
 
     return res.status(200).json(recipes);
   } catch (error) {

@@ -54,8 +54,10 @@ const getRecipesById = async (req, res) => {
     return res.status(200).json({
       id: recipe.id,
       name: recipe.name,
+      image: recipe.image,
       summary: recipe.summary,
       healthScore: recipe.healthScore,
+      time: recipe.time,
       steps: recipe.steps,
       diets: dietsName,
     });
